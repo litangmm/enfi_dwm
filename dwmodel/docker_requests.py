@@ -14,7 +14,7 @@ from .setting import DOCKER_BASE_URL as BASE_URL
 
 # 1.镜像管理
 # 1.1 创建镜像 file+dockerfile
-def create_image(modelfile, dockerfile, tag):
+def create_image(modelfile, dockerfile, tag):  # TODO: 当前函数无法指定dockerfile
     url = '{0}/build'.format(BASE_URL)
     querystring = {
         't': 'dw/{0}'.format(tag)

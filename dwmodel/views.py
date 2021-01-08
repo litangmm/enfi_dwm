@@ -43,7 +43,7 @@ class ModelFileViewSet(viewsets.ModelViewSet):
     queryset = ModelFile.objects.all()
     serializer_class = ModelFileSerializer
 
-
+# TODO 需要检查name 不能相同
 class ImageViewSet(viewsets.ViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
@@ -144,6 +144,7 @@ class ImageViewSet(viewsets.ViewSet):
             return Response(response.json(), response.status_code)
 
 
+# TODO 需要检查name 不能相同
 class ContainerViewSet(viewsets.ViewSet):
     queryset = Container.objects.all()
     serializer_class = ContainerSerializer
@@ -258,7 +259,7 @@ class ContainerViewSet(viewsets.ViewSet):
                 status.HTTP_400_BAD_REQUEST
             )
 
-    def destroy(self, request, pk=None):
+    def destroy(self, request, pk=None):  # TODO 与image删除实现不一样，是否存在问题
         container = get_object_or_404(Container.objects.all(), pk=pk)
         docker_container_id = container.docker_container_id
         response = remove_container(docker_container_id)
