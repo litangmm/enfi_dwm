@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dwmodel/', include('dwmodel.urls')),
+    path('download/', include('file_download.urls'))
 ]
