@@ -156,7 +156,7 @@ class ContainerViewSet(viewsets.ViewSet):
         :return:
         """
         responseJson = inspect_container(containerId=container.docker_container_id).json()
-        needKeys = ['Id', 'Created', 'State', 'Image', 'LogPath', 'RestartCount', 'NetworkSettings.Ports']
+        needKeys = ['Id', 'Created', 'State.Status', 'LogPath', 'RestartCount', 'NetworkSettings.Ports']
         returnJson = getNeedValue(
             sourceObject=responseJson,
             needKeys=needKeys
