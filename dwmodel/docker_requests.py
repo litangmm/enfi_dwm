@@ -1,8 +1,8 @@
 import requests
-import tarfile
 import json
 
 from .setting import DOCKER_BASE_URL as BASE_URL
+from .utils import createTargetTar
 
 
 #
@@ -11,10 +11,10 @@ from .setting import DOCKER_BASE_URL as BASE_URL
 #         tar.add(dockerfilePath)
 #     return rootPath
 
-
 # 1.镜像管理
 # 1.1 创建镜像 file+dockerfile
-def create_image(modelfile, dockerfile, tag):  # TODO: 当前函数无法指定dockerfile
+def create_image(modelfile, dockerfile, tag):
+    tarfile, filedir = createTargetTar(modelfile, dockerfile)
     url = '{0}/build'.format(BASE_URL)
     querystring = {
         't': 'dw/{0}'.format(tag)
@@ -24,8 +24,22 @@ def create_image(modelfile, dockerfile, tag):  # TODO: 当前函数无法指定d
     }
     response = requests.request(method='POST', headers=headers,
                                 url=url, params=querystring,
-                                data=modelfile)
+                                data=open(tarfile, 'rb').read())
     return response
+
+
+# def create_image(modelfile, dockerfile, tag):
+#     url = '{0}/build'.format(BASE_URL)
+#     querystring = {
+#         't': 'dw/{0}'.format(tag)
+#     }
+#     headers = {
+#         'Content-Type': 'application/x-tar'
+#     }
+#     response = requests.request(method='POST', headers=headers,
+#                                 url=url, params=querystring,
+#                                 data=modelfile)
+#     return response
 
 
 # 1.2 删除镜像 byId

@@ -90,7 +90,7 @@ class ImageViewSet(viewsets.ViewSet):
         modelfile = get_object_or_404(ModelFile.objects.all(), pk=modelfileId)
         dockerfile = get_object_or_404(DockerFile.objects.all(), pk=dockerfileId)
         # 2. 根据请求发送 创建镜像请求，获取返回的 docker_image_id
-        response = create_image(modelfile.file, dockerfile.file, name)
+        response = create_image(modelfile.file.name, dockerfile.file.name, name)
         docker_image_id = None
         if response.status_code > 300:
             return Response(response.json(), status=response.status_code)
