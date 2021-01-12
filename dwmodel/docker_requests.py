@@ -124,6 +124,10 @@ def pause_container(containerId):
     response = requests.post(url)
     return response
 
+def unpause_container(containerId):
+    url = '{0}/containers/{1}/unpause'.format(BASE_URL, containerId)
+    response = requests.post(url)
+    return response
 
 # 2.5 停止容器 byId
 def stop_container(containerId):
