@@ -1,9 +1,10 @@
 from django.db import models
-
+from datetime import datetime
 
 class ModelFile(models.Model):
     id = models.IntegerField(primary_key=True)
     file = models.FileField(upload_to='file/models/')
+    create_time = models.DateTimeField(auto_created=True, default=datetime.now, blank=True)
     description = models.TextField()
 
     def __str__(self):
